@@ -12,13 +12,29 @@ import java.util.ArrayList;
  * @author romanelli
  */
 public class TelaInicial extends javax.swing.JFrame {
+    
+    private static TelaInicial INSTANCE;
+    public static TelaInicial getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new TelaInicial();
+        return INSTANCE;
+    }
 
     private ArrayList<Comando> listaComandos;
+    
+    public boolean incluirComando(Comando c) {
+        // incluir comando na lista de comandos
+        listaComandos.add(c);
+        // atualizar exibiçao da lista na tela
+        ((ModeloTabelaComandos)jTableComandos.getModel()).fireTableDataChanged();
+        return true;
+    }
     
     /**
      * Creates new form TelaInicial
      */
     public TelaInicial() {
+        INSTANCE = this; // <------- precisa melhorar!!!
         initComponents();
         
         listaComandos = new ArrayList<>();
@@ -66,6 +82,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonIncluirComando.setText("Incluir comando");
         jButtonIncluirComando.setPreferredSize(new java.awt.Dimension(114, 27));
+        jButtonIncluirComando.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirComandoActionPerformed(evt);
+            }
+        });
 
         jButtonExecutarComando.setText("Executar comando");
 
@@ -135,6 +156,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonIncluirComandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirComandoActionPerformed
+        TelaCadastroComando tela = new TelaCadastroComando(this, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jButtonIncluirComandoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCarregar;
