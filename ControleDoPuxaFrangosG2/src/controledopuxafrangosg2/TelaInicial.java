@@ -33,7 +33,7 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    public TelaInicial() {
+    public TelaInicial() { // -----> JTable -> singleSelection, componentPopupMenu
         INSTANCE = this; // <------- precisa melhorar!!!
         initComponents();
         
@@ -57,6 +57,9 @@ public class TelaInicial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenuComandos = new javax.swing.JPopupMenu();
+        jMenuItemAlterar = new javax.swing.JMenuItem();
+        jMenuItemExcluir = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jButtonSalvar = new javax.swing.JButton();
         jButtonCarregar = new javax.swing.JButton();
@@ -65,6 +68,12 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonExecutarComando = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableComandos = new javax.swing.JTable();
+
+        jMenuItemAlterar.setText("Alterar");
+        jPopupMenuComandos.add(jMenuItemAlterar);
+
+        jMenuItemExcluir.setText("Excluir");
+        jPopupMenuComandos.add(jMenuItemExcluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Controle do Puxa-Frangos");
@@ -131,6 +140,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableComandos.setComponentPopupMenu(jPopupMenuComandos);
+        jTableComandos.setName(""); // NOI18N
+        jTableComandos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTableComandos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,7 +180,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton jButtonIncluirComando;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JMenuItem jMenuItemAlterar;
+    private javax.swing.JMenuItem jMenuItemExcluir;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenuComandos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableComandos;
     // End of variables declaration//GEN-END:variables
