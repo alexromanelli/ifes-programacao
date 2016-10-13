@@ -15,12 +15,19 @@ import java.util.logging.Logger;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    public void incluirComandoNaLista(Comando c) {
+        // incluir o comando c na lista
+
+        // atualizar a exibiçao da tabela
+        ((ModeloTabelaComandos) jtableListaComandos.getModel()).fireTableDataChanged();
+    }
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
-        jtableListaComandos.setModel(new ModeloTabelaComandos(new ArrayList<>()));
+        jtableListaComandos.setModel(new ModeloTabelaComandos(new ArrayList<Comando>()));
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoGarra(1, 120));
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoMovimento(2, -40, 50, 70));
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoMovimento(3, -30, 60, 60));
@@ -42,7 +49,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonIncluirComando = new javax.swing.JButton();
         jbuttonExecutarComandos = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -57,7 +64,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton2.setText("Carregar");
 
-        jButton3.setText("Incluir comando");
+        jButtonIncluirComando.setText("Incluir comando");
+        jButtonIncluirComando.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIncluirComandoActionPerformed(evt);
+            }
+        });
 
         jbuttonExecutarComandos.setText("Executar comandos");
         jbuttonExecutarComandos.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +92,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(jButtonIncluirComando)
                 .addGap(18, 18, 18)
                 .addComponent(jbuttonExecutarComandos)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -92,7 +104,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(jButtonIncluirComando)
                     .addComponent(jbuttonExecutarComandos)
                     .addComponent(jButton5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -152,6 +164,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbuttonExecutarComandosActionPerformed
 
+    private void jButtonIncluirComandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirComandoActionPerformed
+        TelaInclusaoComando telaInclusaoComando = new TelaInclusaoComando(this, true);
+        telaInclusaoComando.setVisible(true);
+    }//GEN-LAST:event_jButtonIncluirComandoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -161,8 +178,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButtonIncluirComando;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbuttonExecutarComandos;

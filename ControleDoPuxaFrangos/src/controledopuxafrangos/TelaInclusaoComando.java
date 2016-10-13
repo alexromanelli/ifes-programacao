@@ -11,11 +11,14 @@ package controledopuxafrangos;
  */
 public class TelaInclusaoComando extends javax.swing.JDialog {
 
+    private TelaPrincipal telaPrincipal;
+
     /**
      * Creates new form TelaInclusaoComando
      */
     public TelaInclusaoComando(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        telaPrincipal = (TelaPrincipal) parent;
         initComponents();
     }
 
@@ -28,22 +31,160 @@ public class TelaInclusaoComando extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jRadioButtonAberturaGarra = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        jSpinnerAngulo = new javax.swing.JSpinner();
+        jRadioButtonPosicionamentoBraco = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldX = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldY = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldZ = new javax.swing.JTextField();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Controle do Puxa-Frangos - Inclusao de comando");
+
+        buttonGroup1.add(jRadioButtonAberturaGarra);
+        jRadioButtonAberturaGarra.setText("Abertura da garra");
+        jRadioButtonAberturaGarra.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButtonAberturaGarraStateChanged(evt);
+            }
+        });
+
+        jLabel1.setText("Angulo");
+
+        jSpinnerAngulo.setEnabled(false);
+
+        buttonGroup1.add(jRadioButtonPosicionamentoBraco);
+        jRadioButtonPosicionamentoBraco.setText("Posicionamento do braço");
+        jRadioButtonPosicionamentoBraco.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jRadioButtonPosicionamentoBracoStateChanged(evt);
+            }
+        });
+
+        jLabel2.setText("x");
+
+        jTextFieldX.setEnabled(false);
+        jTextFieldX.setPreferredSize(new java.awt.Dimension(20, 27));
+
+        jLabel3.setText("y");
+
+        jTextFieldY.setEnabled(false);
+        jTextFieldY.setPreferredSize(new java.awt.Dimension(20, 27));
+
+        jLabel4.setText("z");
+
+        jTextFieldZ.setEnabled(false);
+        jTextFieldZ.setPreferredSize(new java.awt.Dimension(20, 27));
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setPreferredSize(new java.awt.Dimension(130, 27));
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.setPreferredSize(new java.awt.Dimension(130, 27));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel4))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel2)))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextFieldY, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldX, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSpinnerAngulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                            .addComponent(jTextFieldZ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButtonAberturaGarra)
+                            .addComponent(jRadioButtonPosicionamentoBraco)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jRadioButtonAberturaGarra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jSpinnerAngulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButtonPosicionamentoBraco)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldZ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jRadioButtonAberturaGarraStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonAberturaGarraStateChanged
+        if (jRadioButtonAberturaGarra.isSelected()) {
+            jSpinnerAngulo.setEnabled(true);
+            jTextFieldX.setEnabled(false);
+            jTextFieldY.setEnabled(false);
+            jTextFieldZ.setEnabled(false);
+        }
+    }//GEN-LAST:event_jRadioButtonAberturaGarraStateChanged
+
+    private void jRadioButtonPosicionamentoBracoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButtonPosicionamentoBracoStateChanged
+        if (jRadioButtonPosicionamentoBraco.isSelected()) {
+            jSpinnerAngulo.setEnabled(false);
+            jTextFieldX.setEnabled(true);
+            jTextFieldY.setEnabled(true);
+            jTextFieldZ.setEnabled(true);
+        }
+    }//GEN-LAST:event_jRadioButtonPosicionamentoBracoStateChanged
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,5 +229,18 @@ public class TelaInclusaoComando extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JRadioButton jRadioButtonAberturaGarra;
+    private javax.swing.JRadioButton jRadioButtonPosicionamentoBraco;
+    private javax.swing.JSpinner jSpinnerAngulo;
+    private javax.swing.JTextField jTextFieldX;
+    private javax.swing.JTextField jTextFieldY;
+    private javax.swing.JTextField jTextFieldZ;
     // End of variables declaration//GEN-END:variables
 }
