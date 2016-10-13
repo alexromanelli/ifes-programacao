@@ -14,12 +14,23 @@ import java.util.logging.Logger;
  * @author romanelli
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+    
+    private static TelaPrincipal INSTANCE;
+    public static TelaPrincipal getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new TelaPrincipal();
+        return INSTANCE;
+    }
+    
+    private ArrayList<Comando> listaComandos;
 
     public void incluirComandoNaLista(Comando c) {
         // incluir o comando c na lista
+        listaComandos.add(c);
 
         // atualizar a exibiçao da tabela
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).fireTableDataChanged();
+        ((ModeloTabelaComandos) jtableListaComandos.getModel()).
+                fireTableDataChanged();
     }
 
     /**
@@ -27,14 +38,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        jtableListaComandos.setModel(new ModeloTabelaComandos(new ArrayList<Comando>()));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoGarra(1, 120));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoMovimento(2, -40, 50, 70));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoMovimento(3, -30, 60, 60));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoMovimento(4, -20, 70, 50));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoMovimento(5, -10, 80, 40));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).getListaComandos().add(new ComandoGarra(6, 150));
-        ((ModeloTabelaComandos) jtableListaComandos.getModel()).fireTableDataChanged();
+        listaComandos = new ArrayList<Comando>();
+        jtableListaComandos.setModel(new ModeloTabelaComandos(listaComandos));
+        listaComandos.add(new ComandoGarra(1, 120));
+        listaComandos.add(new ComandoMovimento(2, -40, 50, 70));
+        listaComandos.add(new ComandoMovimento(3, -30, 60, 60));
+        listaComandos.add(new ComandoMovimento(4, -20, 70, 50));
+        listaComandos.add(new ComandoMovimento(5, -10, 80, 40));
+        listaComandos.add(new ComandoGarra(6, 150));
+        ((ModeloTabelaComandos) jtableListaComandos.getModel()).
+                fireTableDataChanged();
     }
 
     /**

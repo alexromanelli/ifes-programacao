@@ -5,6 +5,8 @@
  */
 package controledopuxafrangos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author romanelli
@@ -93,6 +95,11 @@ public class TelaInclusaoComando extends javax.swing.JDialog {
 
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.setPreferredSize(new java.awt.Dimension(130, 27));
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,6 +192,31 @@ public class TelaInclusaoComando extends javax.swing.JDialog {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        Comando c;
+        if (jRadioButtonAberturaGarra.isSelected()) {
+            int angulo = (int) jSpinnerAngulo.getValue();
+            c = new ComandoGarra(0, angulo);
+        } else {
+            int x;
+            try {
+                x = Integer.parseInt(jTextFieldX.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, 
+                        "Coordenada X digitada incorretamente.", 
+                        "Erro", 
+                        JOptionPane.ERROR_MESSAGE);
+                jTextFieldX.requestFocus();
+                return;
+            }
+            int y = Integer.parseInt(jTextFieldY.getText());
+            int z = Integer.parseInt(jTextFieldZ.getText());
+            c = new ComandoMovimento(0, x, y, z);
+        }
+        TelaPrincipal.getInstance().incluirComandoNaLista(c);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
