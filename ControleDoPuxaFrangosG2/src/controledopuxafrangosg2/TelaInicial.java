@@ -38,10 +38,14 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         
         listaComandos = new ArrayList<>();
-        listaComandos.add(new MovimentoGarra(1, 160));
-        listaComandos.add(new MovimentoGarra(2, 130));
-        listaComandos.add(new MovimentoGarra(3, 150));
-        listaComandos.add(new MovimentoGarra(4, 160));
+        listaComandos.add(new PosicionamentoGarra(1, 40, 35, 73));
+        listaComandos.add(new MovimentoGarra(2, 160));
+        listaComandos.add(new PosicionamentoGarra(3, 0, 70, 40));
+        listaComandos.add(new MovimentoGarra(4, 130));
+        listaComandos.add(new PosicionamentoGarra(5, -10, 50, 25));
+        listaComandos.add(new MovimentoGarra(6, 150));
+        listaComandos.add(new PosicionamentoGarra(7, 40, 35, 73));
+        listaComandos.add(new MovimentoGarra(8, 160));
         
         ModeloTabelaComandos modelo = new ModeloTabelaComandos(listaComandos);
         
