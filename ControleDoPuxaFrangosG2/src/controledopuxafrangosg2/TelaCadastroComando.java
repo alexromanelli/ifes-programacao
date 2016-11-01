@@ -5,6 +5,8 @@
  */
 package controledopuxafrangosg2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author romanelli
@@ -169,11 +171,33 @@ public class TelaCadastroComando extends javax.swing.JDialog {
     }//GEN-LAST:event_jRadioButtonPosicionamentoStateChanged
 
     private void jButtonIncluirComandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIncluirComandoActionPerformed
+        
         if (jRadioButtonMovimentoGarra.isSelected()) {
+        
             int angulo = (int) jSpinnerAngulo.getValue();
             MovimentoGarra mv = new MovimentoGarra(0, angulo); // <--- corrigir o zero
             TelaInicial.getInstance().incluirComando(mv);
             this.setVisible(false);
+        
+        } else if (jRadioButtonPosicionamento.isSelected()) {
+            
+            int x;
+            try {
+                x = Integer.parseInt(jTextFieldX.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, 
+                        "Coordenada x digitada incorretamente.", 
+                        "Erro", 
+                        JOptionPane.ERROR_MESSAGE);
+                jTextFieldX.requestFocus();
+                return;
+            }
+            int y = Integer.parseInt(jTextFieldY.getText());
+            int z = Integer.parseInt(jTextFieldZ.getText());
+            PosicionamentoGarra pos = new PosicionamentoGarra(0, x, y, z);
+            TelaInicial.getInstance().incluirComando(pos);
+            this.setVisible(false);
+            
         }
     }//GEN-LAST:event_jButtonIncluirComandoActionPerformed
 
