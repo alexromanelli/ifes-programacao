@@ -5,9 +5,21 @@
  */
 package controledopuxafrangos;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -24,6 +36,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private ArrayList<Comando> listaComandos;
 
+    protected ArrayList<Comando> getListaComandos() {
+        return listaComandos;
+    }
+
     public void incluirComandoNaLista(Comando c) {
         // incluir o comando c na lista
         listaComandos.add(c);
@@ -31,6 +47,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // atualizar a exibiçao da tabela
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).
                 fireTableDataChanged();
+    }
+    
+    private void lerArquivoDeComandos(String caminhoArquivo) {
+        try {
+            BufferedReader leitor = new BufferedReader(
+                    new FileReader(caminhoArquivo));
+            String linha = null;
+            while ((linha = leitor.readLine()) != null) {
+                Comando c = null;
+                String[] valores = linha.split(" ");
+                if (valores[0].equals("G")) {
+                    // criar um objeto da classe ComandoGarra em c
+                } else if (valores[0].equals("P")) {
+                    // criar um objeto da classe ComandoMovimento em c
+                }
+                listaComandos.add(c);
+            }
+        } catch (FileNotFoundException ex) {
+            // criar mensagem amigável...
+        } catch (IOException ex) {
+            // criar mensagem amigável...
+        }
     }
 
     /**
@@ -60,7 +98,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButtonIncluirComando = new javax.swing.JButton();
         jbuttonExecutarComandos = new javax.swing.JButton();
@@ -73,7 +111,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton1.setText("Salvar");
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Carregar");
 
@@ -99,7 +142,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(jButtonSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -115,7 +158,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButtonSalvar)
                     .addComponent(jButton2)
                     .addComponent(jButtonIncluirComando)
                     .addComponent(jbuttonExecutarComandos)
@@ -182,6 +225,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaInclusaoComando.setVisible(true);
     }//GEN-LAST:event_jButtonIncluirComandoActionPerformed
 
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            PrintWriter saida = null;
+            try {
+                File arquivo = fileChooser.getSelectedFile();
+                saida = new PrintWriter(
+                        new FileWriter(arquivo.getAbsolutePath()));
+                
+                // escrever uma linha para cada comando da lista "listaComandos"
+                for (Comando c : listaComandos) {
+                    String comando = "";
+                    if (c instanceof ComandoGarra) {
+                        comando += "G ";
+                        comando += Integer.toString(((ComandoGarra) c).getAngulo());
+                    } else if (c instanceof ComandoMovimento) {
+                        comando += "P ";
+                        comando += Integer.toString(((ComandoMovimento) c).getX());
+                        comando += " ";
+                        comando += Integer.toString(((ComandoMovimento) c).getY());
+                        comando += " ";
+                        comando += Integer.toString(((ComandoMovimento) c).getZ());
+                    }
+                    saida.println(comando);
+                }
+                
+            } catch (IOException ex) {
+                // criar mensagem amigável...
+            } finally {
+                saida.close();
+            }
+        }
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,10 +266,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonIncluirComando;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbuttonExecutarComandos;

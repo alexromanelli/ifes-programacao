@@ -194,7 +194,8 @@ public class TelaCadastroComando extends javax.swing.JDialog {
             }
             int y = Integer.parseInt(jTextFieldY.getText());
             int z = Integer.parseInt(jTextFieldZ.getText());
-            PosicionamentoGarra pos = new PosicionamentoGarra(0, x, y, z);
+            int s = TelaInicial.getInstance().listaComandos.size() + 1;
+            PosicionamentoGarra pos = new PosicionamentoGarra(s, x, y, z);
             TelaInicial.getInstance().incluirComando(pos);
             this.setVisible(false);
             

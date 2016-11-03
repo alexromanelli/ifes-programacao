@@ -194,10 +194,13 @@ public class TelaInclusaoComando extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        
+        int sequencial = TelaPrincipal.getInstance().getListaComandos().size() + 1;
+        
         Comando c;
         if (jRadioButtonAberturaGarra.isSelected()) {
             int angulo = (int) jSpinnerAngulo.getValue();
-            c = new ComandoGarra(0, angulo);
+            c = new ComandoGarra(sequencial, angulo);
         } else {
             int x;
             try {
@@ -212,7 +215,7 @@ public class TelaInclusaoComando extends javax.swing.JDialog {
             }
             int y = Integer.parseInt(jTextFieldY.getText());
             int z = Integer.parseInt(jTextFieldZ.getText());
-            c = new ComandoMovimento(0, x, y, z);
+            c = new ComandoMovimento(sequencial, x, y, z);
         }
         TelaPrincipal.getInstance().incluirComandoNaLista(c);
         this.setVisible(false);
