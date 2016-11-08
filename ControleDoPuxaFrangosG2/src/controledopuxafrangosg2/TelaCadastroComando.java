@@ -175,7 +175,8 @@ public class TelaCadastroComando extends javax.swing.JDialog {
         if (jRadioButtonMovimentoGarra.isSelected()) {
         
             int angulo = (int) jSpinnerAngulo.getValue();
-            MovimentoGarra mv = new MovimentoGarra(0, angulo); // <--- corrigir o zero
+            int s = TelaInicial.getInstance().getListaComandos().size() + 1;
+            MovimentoGarra mv = new MovimentoGarra(s, angulo);
             TelaInicial.getInstance().incluirComando(mv);
             this.setVisible(false);
         
@@ -194,7 +195,7 @@ public class TelaCadastroComando extends javax.swing.JDialog {
             }
             int y = Integer.parseInt(jTextFieldY.getText());
             int z = Integer.parseInt(jTextFieldZ.getText());
-            int s = TelaInicial.getInstance().listaComandos.size() + 1;
+            int s = TelaInicial.getInstance().getListaComandos().size() + 1;
             PosicionamentoGarra pos = new PosicionamentoGarra(s, x, y, z);
             TelaInicial.getInstance().incluirComando(pos);
             this.setVisible(false);

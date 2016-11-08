@@ -5,7 +5,15 @@
  */
 package controledopuxafrangosg2;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +29,10 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     private ArrayList<Comando> listaComandos;
+
+    public ArrayList<Comando> getListaComandos() {
+        return listaComandos;
+    }
     
     public boolean incluirComando(Comando c) {
         // incluir comando na lista de comandos
@@ -86,9 +98,19 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonCarregar.setText("Carregar");
         jButtonCarregar.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonCarregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCarregarActionPerformed(evt);
+            }
+        });
 
         jButtonNovo.setText("Novo");
         jButtonNovo.setPreferredSize(new java.awt.Dimension(80, 27));
@@ -177,6 +199,69 @@ public class TelaInicial extends javax.swing.JFrame {
         TelaCadastroComando tela = new TelaCadastroComando(this, true);
         tela.setVisible(true);
     }//GEN-LAST:event_jButtonIncluirComandoActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File arquivo = fileChooser.getSelectedFile();
+                PrintWriter saida = new PrintWriter(arquivo);
+                
+                for (Comando c : listaComandos) {
+                    String linhaComando = "";
+                    if (c instanceof MovimentoGarra) {
+                        linhaComando = "G ";
+                        MovimentoGarra mg = (MovimentoGarra) c;
+                        linhaComando += Integer.toString(mg.getAngulo());
+                    } else if (c instanceof PosicionamentoGarra) {
+                        linhaComando = "P ";
+                        PosicionamentoGarra pg = (PosicionamentoGarra) c;
+                        linhaComando += Integer.toString(pg.getX());
+                        linhaComando += " ";
+                        linhaComando += Integer.toString(pg.getY());
+                        linhaComando += " ";
+                        linhaComando += Integer.toString(pg.getZ());
+                    }
+                    
+                    saida.println(linhaComando);
+                }
+                
+                saida.close();
+                
+                JOptionPane.showMessageDialog(this, "Arquivo criado.");
+                
+            } catch (FileNotFoundException ex) {
+                // exibir mensagem amigável ao usuário...
+            }
+        }
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jButtonCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarregarActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                File arquivo = fileChooser.getSelectedFile();
+                BufferedReader entrada = 
+                        new BufferedReader(new FileReader(arquivo));
+                listaComandos.clear();
+                String linha = null;
+                while ((linha = entrada.readLine()) != null) {
+                    String[] itens = linha.split(" ");
+                    
+                    Comando c = null;
+                    
+                    // criar objeto de comando (MovimentoGarra ou
+                    // PosicionamentoGarra) na variável c
+                    
+                    listaComandos.add(c);
+                }
+            } catch (FileNotFoundException ex) {
+                // exibir mensagem amigável ao usuário...
+            } catch (IOException ex) {
+                // exibir outra mensagem amigável ao usuário...
+            }
+        }
+    }//GEN-LAST:event_jButtonCarregarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCarregar;
