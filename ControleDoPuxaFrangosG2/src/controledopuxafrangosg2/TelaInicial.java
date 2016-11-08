@@ -255,6 +255,10 @@ public class TelaInicial extends javax.swing.JFrame {
                     
                     listaComandos.add(c);
                 }
+                // atualizar exibiçao da lista na tela
+                ((ModeloTabelaComandos)jTableComandos.getModel())
+                        .fireTableDataChanged();
+                
             } catch (FileNotFoundException ex) {
                 // exibir mensagem amigável ao usuário...
             } catch (IOException ex) {
