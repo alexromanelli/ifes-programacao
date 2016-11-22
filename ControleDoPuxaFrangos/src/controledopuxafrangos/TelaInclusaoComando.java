@@ -5,6 +5,9 @@
  */
 package controledopuxafrangos;
 
+import controledopuxafrangos.dados.ComandoMovimento;
+import controledopuxafrangos.dados.Comando;
+import controledopuxafrangos.dados.ComandoGarra;
 import javax.swing.JOptionPane;
 
 /**

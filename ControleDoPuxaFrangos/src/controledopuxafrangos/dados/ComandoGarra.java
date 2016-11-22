@@ -1,4 +1,4 @@
-package controledopuxafrangos;
+package controledopuxafrangos.dados;
 
 import java.text.NumberFormat;
 
@@ -13,6 +13,12 @@ public class ComandoGarra extends Comando {
     public ComandoGarra(int sequencial, int angulo) {
         this.angulo = angulo;
         super.setSequencial(sequencial);
+    }
+
+    public ComandoGarra(long id, int sequencial, int angulo) {
+        this.angulo = angulo;
+        super.setSequencial(sequencial);
+        super.setId(id);
     }
 
     public int getAngulo() {

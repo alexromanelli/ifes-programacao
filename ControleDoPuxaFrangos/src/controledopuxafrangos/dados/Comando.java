@@ -1,12 +1,20 @@
-package controledopuxafrangos;
+package controledopuxafrangos.dados;
 
 /**
  *
  * @author romanelli
  */
 public abstract class Comando {
-    
+    private long id;
     private int sequencial;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public int getSequencial() {
         return sequencial;

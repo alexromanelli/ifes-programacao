@@ -1,5 +1,8 @@
 package controledopuxafrangos;
 
+import controledopuxafrangos.dados.ComandoMovimento;
+import controledopuxafrangos.dados.Comando;
+import controledopuxafrangos.dados.ComandoGarra;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 

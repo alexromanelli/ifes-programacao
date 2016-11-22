@@ -1,5 +1,7 @@
 
-package controledopuxafrangosg2;
+package controledopuxafrangosg2.dados;
+
+import controledopuxafrangosg2.dados.Comando;
 
 /**
  *

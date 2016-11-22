@@ -1,4 +1,4 @@
-package controledopuxafrangos;
+package controledopuxafrangos.dados;
 
 /**
  *
@@ -15,6 +15,14 @@ public class ComandoMovimento extends Comando {
         this.y = y;
         this.z = z;
         super.setSequencial(sequencial);
+    }
+
+    public ComandoMovimento(long id, int sequencial, int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        super.setSequencial(sequencial);
+        super.setId(id);
     }
 
     public int getX() {

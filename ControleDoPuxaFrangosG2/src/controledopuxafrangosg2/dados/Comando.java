@@ -1,4 +1,4 @@
-package controledopuxafrangosg2;
+package controledopuxafrangosg2.dados;
 
 /**
  *

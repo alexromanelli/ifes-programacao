@@ -1,5 +1,6 @@
 package controledopuxafrangosg2;
 
+import controledopuxafrangosg2.dados.Comando;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 

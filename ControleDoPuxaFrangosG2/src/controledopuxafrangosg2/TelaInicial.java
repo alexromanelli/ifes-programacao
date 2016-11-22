@@ -5,6 +5,9 @@
  */
 package controledopuxafrangosg2;
 
+import controledopuxafrangosg2.dados.MovimentoGarra;
+import controledopuxafrangosg2.dados.PosicionamentoGarra;
+import controledopuxafrangosg2.dados.Comando;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

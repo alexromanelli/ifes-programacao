@@ -5,6 +5,8 @@
  */
 package controledopuxafrangosg2;
 
+import controledopuxafrangosg2.dados.MovimentoGarra;
+import controledopuxafrangosg2.dados.PosicionamentoGarra;
 import javax.swing.JOptionPane;
 
 /**
