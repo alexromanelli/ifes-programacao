@@ -10,8 +10,6 @@ import controledopuxafrangosg2.dao.ListaComandosDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +18,13 @@ import javax.swing.JOptionPane;
  */
 public class PostgreSqlDAOFactory extends DAOFactory {
     
+    private static PostgreSqlDAOFactory INSTANCE;
+    public static PostgreSqlDAOFactory getInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new PostgreSqlDAOFactory();
+        return INSTANCE;
+    }
+    
     private static final String DB_URL = 
             "jdbc:postgresql://localhost:5432/puxafrangos";
     private static final String DB_USER = "postgres";
@@ -27,7 +32,12 @@ public class PostgreSqlDAOFactory extends DAOFactory {
     
     private Connection con;
     
+    public Connection getConnection() {
+        return con;
+    }
+    
     public PostgreSqlDAOFactory() {
+        INSTANCE = this;
         try {
             
             Class.forName("org.postgresql.Driver");
@@ -50,7 +60,7 @@ public class PostgreSqlDAOFactory extends DAOFactory {
 
     @Override
     public ListaComandosDAO getListaComandosDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new PostgreSqlListaComandosDAO();
     }
 
     @Override

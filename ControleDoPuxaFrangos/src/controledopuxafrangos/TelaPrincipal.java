@@ -8,6 +8,7 @@ package controledopuxafrangos;
 import controledopuxafrangos.dados.ComandoMovimento;
 import controledopuxafrangos.dados.Comando;
 import controledopuxafrangos.dados.ComandoGarra;
+import controledopuxafrangos.dao.DAOFactory;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -79,14 +80,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        listaComandos = new ArrayList<Comando>();
+        listaComandos = DAOFactory.getDefaultDAOFactory().getComandoDAO().selecionarPorLista(1);
         jtableListaComandos.setModel(new ModeloTabelaComandos(listaComandos));
-        listaComandos.add(new ComandoGarra(1, 120));
-        listaComandos.add(new ComandoMovimento(2, -40, 50, 70));
-        listaComandos.add(new ComandoMovimento(3, -30, 60, 60));
-        listaComandos.add(new ComandoMovimento(4, -20, 70, 50));
-        listaComandos.add(new ComandoMovimento(5, -10, 80, 40));
-        listaComandos.add(new ComandoGarra(6, 150));
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).
                 fireTableDataChanged();
     }
