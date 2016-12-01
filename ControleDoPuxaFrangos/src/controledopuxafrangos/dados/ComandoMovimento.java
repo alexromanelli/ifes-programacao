@@ -17,10 +17,12 @@ public class ComandoMovimento extends Comando {
         super.setSequencial(sequencial);
     }
 
-    public ComandoMovimento(long id, int sequencial, int x, int y, int z) {
+    public ComandoMovimento(long id, ListaComandos lista, int sequencial, 
+            int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
+        super.setLista(lista);
         super.setSequencial(sequencial);
         super.setId(id);
     }

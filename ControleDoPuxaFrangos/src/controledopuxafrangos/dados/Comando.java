@@ -6,6 +6,7 @@ package controledopuxafrangos.dados;
  */
 public abstract class Comando {
     private long id;
+    private ListaComandos lista;
     private int sequencial;
 
     public long getId() {
@@ -14,6 +15,14 @@ public abstract class Comando {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public ListaComandos getLista() {
+        return lista;
+    }
+
+    public void setLista(ListaComandos lista) {
+        this.lista = lista;
     }
 
     public int getSequencial() {

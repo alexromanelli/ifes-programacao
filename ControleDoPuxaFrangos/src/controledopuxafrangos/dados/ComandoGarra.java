@@ -15,8 +15,10 @@ public class ComandoGarra extends Comando {
         super.setSequencial(sequencial);
     }
 
-    public ComandoGarra(long id, int sequencial, int angulo) {
+    public ComandoGarra(long id, ListaComandos lista, int sequencial, 
+            int angulo) {
         this.angulo = angulo;
+        super.setLista(lista);
         super.setSequencial(sequencial);
         super.setId(id);
     }
