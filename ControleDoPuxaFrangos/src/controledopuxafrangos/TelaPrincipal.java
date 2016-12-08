@@ -8,6 +8,8 @@ package controledopuxafrangos;
 import controledopuxafrangos.dados.ComandoMovimento;
 import controledopuxafrangos.dados.Comando;
 import controledopuxafrangos.dados.ComandoGarra;
+import controledopuxafrangos.dados.ListaComandos;
+import controledopuxafrangos.dao.ComandoDAO;
 import controledopuxafrangos.dao.DAOFactory;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -47,6 +49,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void incluirComandoNaLista(Comando c) {
         // incluir o comando c na lista
         listaComandos.add(c);
+        
+        // incluir o comando c no banco de dados
+        DAOFactory.getDefaultDAOFactory().getComandoDAO().inserir(c);
 
         // atualizar a exibiçao da tabela
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).
@@ -80,7 +85,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        listaComandos = DAOFactory.getDefaultDAOFactory().getComandoDAO().selecionarPorLista(1);
+        DAOFactory daoFactory = DAOFactory.getDefaultDAOFactory();
+        ComandoDAO comandoDAO = daoFactory.getComandoDAO();
+        
+        // para testes:
+        ArrayList<ListaComandos> listaListaComandos = 
+                daoFactory.getListaComandosDAO().selecionarTodas();
+        ListaComandos lc = listaListaComandos.get(1);
+//        comandoDAO.inserir(new ComandoGarra(-1, lc, 9, 126));
+//        comandoDAO.inserir(new ComandoMovimento(-1, lc, 10, 85, 32, -80));
+        
+        listaComandos = comandoDAO.selecionarPorLista(lc.getId());
+        
+//        ComandoGarra cg = (ComandoGarra) listaComandos.get(9);
+//        cg.setAngulo(180); // altera o objeto na memória
+//        comandoDAO.alterar(cg); // altera o registro no banco de dados
+        
+        // configuração do modelo de exibição de comandos
         jtableListaComandos.setModel(new ModeloTabelaComandos(listaComandos));
         ((ModeloTabelaComandos) jtableListaComandos.getModel()).
                 fireTableDataChanged();
@@ -101,6 +122,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButtonIncluirComando = new javax.swing.JButton();
         jbuttonExecutarComandos = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtableListaComandos = new javax.swing.JTable();
 
@@ -134,12 +156,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton5.setText("Novo");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
@@ -149,7 +175,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jButtonIncluirComando)
                 .addGap(18, 18, 18)
                 .addComponent(jbuttonExecutarComandos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +186,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButtonIncluirComando)
                     .addComponent(jbuttonExecutarComandos)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -268,6 +295,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButtonIncluirComando;
     private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbuttonExecutarComandos;

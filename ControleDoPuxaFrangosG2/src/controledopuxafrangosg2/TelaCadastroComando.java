@@ -178,7 +178,7 @@ public class TelaCadastroComando extends javax.swing.JDialog {
         
             int angulo = (int) jSpinnerAngulo.getValue();
             int s = TelaInicial.getInstance().getListaComandos().size() + 1;
-            MovimentoGarra mv = new MovimentoGarra(s, angulo);
+            MovimentoGarra mv = new MovimentoGarra(-1, null, s, angulo);
             TelaInicial.getInstance().incluirComando(mv);
             this.setVisible(false);
         
@@ -198,7 +198,7 @@ public class TelaCadastroComando extends javax.swing.JDialog {
             int y = Integer.parseInt(jTextFieldY.getText());
             int z = Integer.parseInt(jTextFieldZ.getText());
             int s = TelaInicial.getInstance().getListaComandos().size() + 1;
-            PosicionamentoGarra pos = new PosicionamentoGarra(s, x, y, z);
+            PosicionamentoGarra pos = new PosicionamentoGarra(-1, null, s, x, y, z);
             TelaInicial.getInstance().incluirComando(pos);
             this.setVisible(false);
             

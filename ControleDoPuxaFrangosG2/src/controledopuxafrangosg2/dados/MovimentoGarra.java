@@ -9,8 +9,8 @@ import controledopuxafrangosg2.dados.Comando;
 public class MovimentoGarra extends Comando {
     private int angulo;
     
-    public MovimentoGarra(int sequencial, int angulo) {
-        super(sequencial);
+    public MovimentoGarra(long id, ListaComandos lista, int sequencial, int angulo) {
+        super(id, lista, sequencial);
         this.angulo = angulo;
     }
 

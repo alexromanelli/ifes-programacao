@@ -5,6 +5,7 @@
  */
 package controledopuxafrangosg2.dao.postgresql;
 
+import controledopuxafrangosg2.dao.ComandoDAO;
 import controledopuxafrangosg2.dao.DAOFactory;
 import controledopuxafrangosg2.dao.ListaComandosDAO;
 import java.sql.Connection;
@@ -65,6 +66,6 @@ public class PostgreSqlDAOFactory extends DAOFactory {
 
     @Override
     public ComandoDAO getComandoDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new PostgreSqlComandoDAO();
     }
 }

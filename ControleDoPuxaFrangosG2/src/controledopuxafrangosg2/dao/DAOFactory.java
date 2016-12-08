@@ -5,6 +5,8 @@
  */
 package controledopuxafrangosg2.dao;
 
+import controledopuxafrangosg2.dao.postgresql.PostgreSqlDAOFactory;
+
 /**
  *
  * @author romanelli

@@ -8,6 +8,8 @@ package controledopuxafrangosg2;
 import controledopuxafrangosg2.dados.MovimentoGarra;
 import controledopuxafrangosg2.dados.PosicionamentoGarra;
 import controledopuxafrangosg2.dados.Comando;
+import controledopuxafrangosg2.dados.ListaComandos;
+import controledopuxafrangosg2.dao.DAOFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,12 +34,16 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     private ArrayList<Comando> listaComandos;
+    private ListaComandos lista;
 
     public ArrayList<Comando> getListaComandos() {
         return listaComandos;
     }
     
     public boolean incluirComando(Comando c) {
+        c.setLista(lista);
+        // inserir comando no banco de dados
+        DAOFactory.getDefaultDAOFactory().getComandoDAO().inserir(c);
         // incluir comando na lista de comandos
         listaComandos.add(c);
         // atualizar exibiçao da lista na tela
@@ -52,15 +58,10 @@ public class TelaInicial extends javax.swing.JFrame {
         INSTANCE = this; // <------- precisa melhorar!!!
         initComponents();
         
-        listaComandos = new ArrayList<>();
-        listaComandos.add(new PosicionamentoGarra(1, 40, 35, 73));
-        listaComandos.add(new MovimentoGarra(2, 160));
-        listaComandos.add(new PosicionamentoGarra(3, 0, 70, 40));
-        listaComandos.add(new MovimentoGarra(4, 130));
-        listaComandos.add(new PosicionamentoGarra(5, -10, 50, 25));
-        listaComandos.add(new MovimentoGarra(6, 150));
-        listaComandos.add(new PosicionamentoGarra(7, 40, 35, 73));
-        listaComandos.add(new MovimentoGarra(8, 160));
+        listaComandos = DAOFactory.getDefaultDAOFactory().getComandoDAO()
+                .selecionarTodosPorIdListaComandos(1);
+        lista = DAOFactory.getDefaultDAOFactory().getListaComandosDAO()
+                .selecionarPorId(1);
         
         ModeloTabelaComandos modelo = new ModeloTabelaComandos(listaComandos);
         

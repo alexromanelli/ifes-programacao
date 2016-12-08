@@ -34,7 +34,8 @@ class PostgreSqlComandoDAO implements ComandoDAO {
                     + "select id, sequencial, tipo, angulo, "
                     + "       coord_x, coord_y, coord_z "
                     + "  from comando "
-                    + " where lista = ?",
+                    + " where lista = ? "
+                    + " order by sequencial",
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
             ps.setLong(1, idLista);
@@ -43,6 +44,7 @@ class PostgreSqlComandoDAO implements ComandoDAO {
 
             ListaComandos lc = daoFactory.getListaComandosDAO()
                     .selecionarPorId(idLista);
+//            ListaComandos lc = null;
             ArrayList<Comando> listaComandos = new ArrayList<>();
             
             rs.beforeFirst();
@@ -86,7 +88,9 @@ class PostgreSqlComandoDAO implements ComandoDAO {
             Connection con = daoFactory.getConnection();
             PreparedStatement ps = con.prepareStatement(
                     "select lista, sequencial, tipo, angulo, coord_x, "
-                            + " coord_y, coord_z from comando where id = ?");
+                            + " coord_y, coord_z from comando where id = ?",
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
             ps.setLong(1, id);
             
             ResultSet rs = ps.executeQuery();

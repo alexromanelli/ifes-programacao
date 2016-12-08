@@ -37,8 +37,8 @@ public class PosicionamentoGarra extends Comando {
         this.z = z;
     }
     
-    public PosicionamentoGarra(int sequencial, int x, int y, int z) {
-        super(sequencial);
+    public PosicionamentoGarra(long id, ListaComandos lista, int sequencial, int x, int y, int z) {
+        super(id, lista, sequencial);
         setX(x);
         setY(y);
         setZ(z);
