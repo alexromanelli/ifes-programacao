@@ -4,7 +4,9 @@
 package controleobi2;
 
 import controleobi2.modelo.ArmazenamentoModalidade;
+import controleobi2.modelo.entidade.Modalidade;
 import controleobi2.visao.JFramePrincipal;
+import java.util.ArrayList;
 
 /**
  *
@@ -47,6 +49,13 @@ public class ControleObi2 {
             java.util.logging.Logger.getLogger(JFramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        ArrayList<Modalidade> listaModalidade = 
+                ControleObi2.getArmazenamentoModalidade().getLista();
+        listaModalidade.add(new Modalidade(1, "Iniciação", "para iniciantes"));
+        listaModalidade.add(new Modalidade(2, "Programação", "para programadores"));
+        listaModalidade.add(new Modalidade(3, "Universitária", "para universitários"));
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

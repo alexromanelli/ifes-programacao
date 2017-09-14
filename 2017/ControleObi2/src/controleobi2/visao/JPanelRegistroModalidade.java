@@ -115,12 +115,6 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
     public JPanelRegistroModalidade() {
         initComponents();
         
-        listaModalidade = 
-                ControleObi2.getArmazenamentoModalidade().getLista();
-        listaModalidade.add(new Modalidade(1, "Iniciação", "para iniciantes"));
-        listaModalidade.add(new Modalidade(2, "Programação", "para programadores"));
-        listaModalidade.add(new Modalidade(3, "Universitária", "para universitários"));
-        
         iniciarCursor();
         exibirDadosCursor();
         
