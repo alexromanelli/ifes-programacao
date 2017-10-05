@@ -3,7 +3,6 @@
  */
 package controleobi2.visao;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,11 +67,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCadastroModalidade, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)))
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCadastroModalidade, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCadastroNivelModalidade)
                 .addContainerGap(327, Short.MAX_VALUE))
@@ -96,16 +94,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastroModalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroModalidadeActionPerformed
-//        JPanelRegistroModalidade jPanelRegistroModalidade = 
-//                new JPanelRegistroModalidade();
-//        JFrame frame = new JFrame();
-//        frame.add(jPanelRegistroModalidade);
-//        frame.pack();
-//        frame.setTitle("Registro de modalidade");
-//        frame.setVisible(true);
         JFrameTabelaModalidade jFrameTabelaModalidade = new JFrameTabelaModalidade();
         jFrameTabelaModalidade.setVisible(true);
     }//GEN-LAST:event_jButtonCadastroModalidadeActionPerformed

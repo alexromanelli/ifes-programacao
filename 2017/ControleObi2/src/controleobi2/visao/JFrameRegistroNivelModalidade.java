@@ -6,14 +6,12 @@ package controleobi2.visao;
 import controleobi2.ControleObi2;
 import controleobi2.modelo.entidade.Modalidade;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Alexandre Romanelli <alexandre.romanelli@ifes.edu.br>
  */
-public class JPanelRegistroModalidade extends javax.swing.JPanel {
-    
+public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     enum Estado {
         Navegando,
         Editando
@@ -109,20 +107,14 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
         }
     }
 
+
     /**
-     * Creates new form JPanelRegistroModalidade
+     * Creates new form JFrameRegistroNivelModalidade
      */
-    public JPanelRegistroModalidade(ArrayList<Modalidade> listaModalidades) {
+    public JFrameRegistroNivelModalidade() {
         initComponents();
-        
-        listaModalidade = listaModalidades;
-        
-        iniciarCursor();
-        exibirDadosCursor();
-        
-        ajustarExibicaoEstado(Estado.Navegando);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,29 +124,26 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextFieldCodigo = new javax.swing.JTextField();
-        jTextFieldNome = new javax.swing.JTextField();
-        jTextFieldDescricao = new javax.swing.JTextField();
         jButtonPrimeiro = new javax.swing.JButton();
         jButtonAnterior = new javax.swing.JButton();
         jButtonProximo = new javax.swing.JButton();
         jButtonUltimo = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldCodigo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldNome = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldDescricao = new javax.swing.JTextField();
         jButtonNovo = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
-        jButtonSalvar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
-        jLabel1.setText("Código");
-
-        jLabel2.setText("Nome");
-
-        jLabel3.setText("Descrição");
-
-        jTextFieldNome.setToolTipText("Digite o nome da modalidade");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registro de Nível de Modalidade");
 
         jButtonPrimeiro.setText("Primeiro");
         jButtonPrimeiro.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +173,14 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Código");
+
+        jLabel2.setText("Nível");
+
+        jTextFieldNome.setToolTipText("Digite o nome da modalidade");
+
+        jLabel3.setText("Eligibilidade");
+
         jButtonNovo.setText("Novo");
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,13 +192,6 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
-            }
-        });
-
-        jButtonSalvar.setText("Salvar");
-        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalvarActionPerformed(evt);
             }
         });
 
@@ -219,45 +209,65 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Modalidade");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonPrimeiro)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 378, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDescricao)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonPrimeiro)
+                                        .addComponent(jLabel1))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jButtonAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jButtonProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jButtonUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(5, 5, 5)
+                                            .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel2))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 433, Short.MAX_VALUE))
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldDescricao))))
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -269,19 +279,23 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
                     .addComponent(jButtonAnterior)
                     .addComponent(jButtonProximo)
                     .addComponent(jButtonUltimo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNovo)
                     .addComponent(jButtonExcluir)
@@ -290,40 +304,10 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
                     .addComponent(jButtonCancelar))
                 .addContainerGap())
         );
+
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    protected void prepararParaNovoRegistro() {
-        jTextFieldCodigo.setText("");
-        jTextFieldNome.setText("");
-        jTextFieldDescricao.setText("");
-        ajustarExibicaoEstado(Estado.Editando);
-        jTextFieldNome.requestFocus();
-    }
-    
-    protected void prepararParaAlterarRegistro(Modalidade registro) {
-        for (Modalidade m : listaModalidade) {
-            if (m.getCodigo() == registro.getCodigo()) {
-                cursor = m;
-                break;
-            }
-        }
-        exibirDadosCursor();
-        ajustarExibicaoEstado(Estado.Editando);
-        jTextFieldNome.requestFocus();
-    }
-    
-    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        prepararParaNovoRegistro();
-    }//GEN-LAST:event_jButtonNovoActionPerformed
-
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Confirmar cancelamento de edição?",
-                "Cancelamento", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-            exibirDadosCursor();
-            ajustarExibicaoEstado(Estado.Navegando);
-        }
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
         moverCursorPrimeiro();
@@ -341,10 +325,43 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
         moverCursorUltimo();
     }//GEN-LAST:event_jButtonUltimoActionPerformed
 
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        //prepararParaNovoRegistro();
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+//        if (JOptionPane.showConfirmDialog(null,
+//            "Confirmar exclusão da modalidade selecionada?",
+//            "Exclusão", JOptionPane.YES_NO_OPTION)
+//        == JOptionPane.YES_OPTION) {
+//        int pos = listaModalidade.indexOf(cursor);
+//        ControleObi2.getArmazenamentoModalidade().excluir(cursor);
+//        if (pos <= listaModalidade.size() - 1) {
+//            cursor = listaModalidade.get(pos);
+//        } else if (pos > 0) {
+//            cursor = listaModalidade.get(pos - 1);
+//        } else {
+//            cursor = null;
+//        }
+//        exibirDadosCursor();
+//        // atualizar exibição de tabela no jFrameTabelaModalidade
+//        JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();
+//        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         ajustarExibicaoEstado(Estado.Editando);
         jTextFieldNome.requestFocus();
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+//        if (JOptionPane.showConfirmDialog(null, "Confirmar cancelamento de edição?",
+//            "Cancelamento", JOptionPane.YES_NO_OPTION)
+//        == JOptionPane.YES_OPTION) {
+//        exibirDadosCursor();
+//        ajustarExibicaoEstado(Estado.Navegando);
+//        }
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         if (jTextFieldCodigo.getText().isEmpty()) {
@@ -367,26 +384,40 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
         JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        if (JOptionPane.showConfirmDialog(null, 
-                "Confirmar exclusão da modalidade selecionada?",
-                "Exclusão", JOptionPane.YES_NO_OPTION)
-                == JOptionPane.YES_OPTION) {
-            int pos = listaModalidade.indexOf(cursor);
-            ControleObi2.getArmazenamentoModalidade().excluir(cursor);
-            if (pos <= listaModalidade.size() - 1) {
-                cursor = listaModalidade.get(pos);
-            } else if (pos > 0) {
-                cursor = listaModalidade.get(pos - 1);
-            } else {
-                cursor = null;
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
-            exibirDadosCursor();
-            // atualizar exibição de tabela no jFrameTabelaModalidade
-            JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtonExcluirActionPerformed
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new JFrameRegistroNivelModalidade().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
@@ -398,9 +429,11 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
     private javax.swing.JButton jButtonProximo;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonUltimo;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldDescricao;
     private javax.swing.JTextField jTextFieldNome;

@@ -4,17 +4,30 @@
 package controleobi2.visao;
 
 import controleobi2.ControleObi2;
+import controleobi2.modelo.entidade.Modalidade;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Alexandre Romanelli <alexandre.romanelli@ifes.edu.br>
  */
 public class JFrameTabelaModalidade extends javax.swing.JFrame {
+    
+    private static JFrameTabelaModalidade INSTANCIA;
+    
+    public static JFrameTabelaModalidade getInstance() {
+        if (INSTANCIA == null)
+            INSTANCIA = new JFrameTabelaModalidade();
+        return INSTANCIA;
+    }
 
     /**
      * Creates new form JFrameTabelaModalidade
      */
     public JFrameTabelaModalidade() {
+        INSTANCIA = this;
         initComponents();
         
         ModeloTabelaModalidades modeloTabela = new ModeloTabelaModalidades(
@@ -38,9 +51,9 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableModalidades = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonNovo = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tabela de modalidades");
@@ -58,11 +71,26 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableModalidades);
 
-        jButton1.setText("Novo");
+        jButtonNovo.setText("Novo");
+        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Editar");
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Excluir");
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,11 +98,11 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(jButtonNovo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(jButtonEditar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(jButtonExcluir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -82,9 +110,9 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonNovo)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonExcluir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -110,7 +138,64 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private JPanelRegistroModalidade exibirTelaRegistroModalidade() {
+        JPanelRegistroModalidade jPanelRegistroModalidade = 
+                new JPanelRegistroModalidade(
+                        ControleObi2.getArmazenamentoModalidade().getLista());
+        JFrame frame = new JFrame();
+        frame.add(jPanelRegistroModalidade);
+        frame.pack();
+        frame.setTitle("Registro de modalidade");
+        frame.setVisible(true);
+        return jPanelRegistroModalidade;
+    }
+    
+    protected void atualizarExibicaoTabela() {
+        ((ModeloTabelaModalidades) jTableModalidades.getModel()).fireTableDataChanged();
+    }
+    
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        JPanelRegistroModalidade telaRegistro = exibirTelaRegistroModalidade();
+        telaRegistro.prepararParaNovoRegistro();
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        int indiceItemSelecionado = jTableModalidades.getSelectedRow();
+        if (indiceItemSelecionado >= 0) {
+            ArrayList<Modalidade> listaModalidades =
+                    ControleObi2.getArmazenamentoModalidade().getLista();
+            Modalidade modalidadeAlterar = listaModalidades.get(indiceItemSelecionado);
+            
+            JPanelRegistroModalidade telaRegistro = exibirTelaRegistroModalidade();
+            telaRegistro.prepararParaAlterarRegistro(modalidadeAlterar);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro para alterar.");
+        }
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int indiceItemSelecionado = jTableModalidades.getSelectedRow();
+        if (indiceItemSelecionado >= 0) {
+            if (JOptionPane.showConfirmDialog(null, 
+                    "Confirmar exclusão da modalidade selecionada?",
+                    "Exclusão", JOptionPane.YES_NO_OPTION)
+                    == JOptionPane.YES_OPTION) {
+                ArrayList<Modalidade> listaModalidade =
+                        ControleObi2.getArmazenamentoModalidade().getLista();
+                Modalidade modalidadeExcluir = listaModalidade.get(indiceItemSelecionado);
+
+                ControleObi2.getArmazenamentoModalidade().excluir(modalidadeExcluir);
+
+                // atualizar exibição de tabela no jFrameTabelaModalidade
+                JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro para excluir.");
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,9 +233,9 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonNovo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableModalidades;
