@@ -69,11 +69,11 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jTextFieldNome" min="-2" pref="249" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldNivel" min="-2" pref="249" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="433" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextFieldDescricao" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jComboBoxModalidade" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldEligibilidade" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -104,19 +104,19 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxModalidade" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextFieldNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextFieldDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldEligibilidade" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -174,7 +174,7 @@
         <Property name="text" type="java.lang.String" value="N&#xed;vel"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldNome">
+    <Component class="javax.swing.JTextField" name="jTextFieldNivel">
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Digite o nome da modalidade"/>
       </Properties>
@@ -184,7 +184,7 @@
         <Property name="text" type="java.lang.String" value="Eligibilidade"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldDescricao">
+    <Component class="javax.swing.JTextField" name="jTextFieldEligibilidade">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonNovo">
       <Properties>
@@ -231,7 +231,7 @@
         <Property name="text" type="java.lang.String" value="Modalidade"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="jComboBoxModalidade">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">

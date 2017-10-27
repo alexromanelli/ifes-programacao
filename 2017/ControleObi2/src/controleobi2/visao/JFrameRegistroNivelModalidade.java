@@ -5,6 +5,7 @@ package controleobi2.visao;
 
 import controleobi2.ControleObi2;
 import controleobi2.modelo.entidade.Modalidade;
+import controleobi2.modelo.entidade.NivelModalidade;
 import java.util.ArrayList;
 
 /**
@@ -17,33 +18,35 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
         Editando
     }
     
-    private ArrayList<Modalidade> listaModalidade;
-    private Modalidade cursor;
+    private ArrayList<NivelModalidade> listaNivelModalidade;
+    private NivelModalidade cursor;
     
     private void ajustarExibicaoEstado(Estado estadoAtual) {
         switch (estadoAtual) {
             case Navegando:
                 jTextFieldCodigo.setEditable(false);
-                jTextFieldNome.setEditable(false);
-                jTextFieldDescricao.setEditable(false);
+                jTextFieldNivel.setEditable(false);
+                jComboBoxModalidade.setEditable(false);
+                jTextFieldEligibilidade.setEditable(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonSalvar.setEnabled(false);
 
                 jButtonNovo.setEnabled(true);
-                boolean haMaisDeUmRegistro = listaModalidade.size() > 1;
+                boolean haMaisDeUmRegistro = listaNivelModalidade.size() > 1;
                 jButtonPrimeiro.setEnabled(haMaisDeUmRegistro);
                 jButtonAnterior.setEnabled(haMaisDeUmRegistro);
                 jButtonProximo.setEnabled(haMaisDeUmRegistro);
                 jButtonUltimo.setEnabled(haMaisDeUmRegistro);
-                boolean haPeloMenosUmRegistro = listaModalidade.size() > 0;
+                boolean haPeloMenosUmRegistro = listaNivelModalidade.size() > 0;
                 jButtonEditar.setEnabled(haPeloMenosUmRegistro);
                 jButtonExcluir.setEnabled(haPeloMenosUmRegistro);
                 break;
 
             case Editando:
                 jTextFieldCodigo.setEditable(false);
-                jTextFieldNome.setEditable(true);
-                jTextFieldDescricao.setEditable(true);
+                jTextFieldNivel.setEditable(true);
+                jComboBoxModalidade.setEditable(true);
+                jTextFieldEligibilidade.setEditable(true);
                 jButtonCancelar.setEnabled(true);
                 jButtonSalvar.setEnabled(true);
 
@@ -60,37 +63,37 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     
     private void iniciarCursor() {
         cursor = null;
-        if (listaModalidade.size() > 0) {
-            cursor = listaModalidade.get(0);
+        if (listaNivelModalidade.size() > 0) {
+            cursor = listaNivelModalidade.get(0);
         }
     }
     
     private void moverCursorProximo() {
-        int pos = listaModalidade.indexOf(cursor);
-        if (pos < listaModalidade.size() - 1) { // verifica se não é o último
-            cursor = listaModalidade.get(pos + 1);
+        int pos = listaNivelModalidade.indexOf(cursor);
+        if (pos < listaNivelModalidade.size() - 1) { // verifica se não é o último
+            cursor = listaNivelModalidade.get(pos + 1);
             exibirDadosCursor();
         }
     }
     
     private void moverCursorAnterior() {
-        int pos = listaModalidade.indexOf(cursor);
+        int pos = listaNivelModalidade.indexOf(cursor);
         if (pos > 0) { // verifica se não é o primeiro
-            cursor = listaModalidade.get(pos - 1);
+            cursor = listaNivelModalidade.get(pos - 1);
             exibirDadosCursor();
         }
     }
     
     private void moverCursorPrimeiro() {
-        if (listaModalidade.size() > 0) {
-            cursor = listaModalidade.get(0);
+        if (listaNivelModalidade.size() > 0) {
+            cursor = listaNivelModalidade.get(0);
             exibirDadosCursor();
         }
     }
     
     private void moverCursorUltimo() {
-        if (listaModalidade.size() > 0) {
-            cursor = listaModalidade.get(listaModalidade.size() - 1);
+        if (listaNivelModalidade.size() > 0) {
+            cursor = listaNivelModalidade.get(listaNivelModalidade.size() - 1);
             exibirDadosCursor();
         }
     }
@@ -98,12 +101,14 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     private void exibirDadosCursor() {
         if (cursor != null) {
             jTextFieldCodigo.setText(Long.toString(cursor.getCodigo()));
-            jTextFieldNome.setText(cursor.getNome());
-            jTextFieldDescricao.setText(cursor.getDescricao());
+            jComboBoxModalidade.setSelectedItem(cursor);
+            jTextFieldNivel.setText(cursor.getNivel());
+            jTextFieldEligibilidade.setText(cursor.getEligibilidade());
         } else {
             jTextFieldCodigo.setText("");
-            jTextFieldNome.setText("");
-            jTextFieldDescricao.setText("");
+            jComboBoxModalidade.setSelectedIndex(-1);
+            jTextFieldNivel.setText("");
+            jTextFieldEligibilidade.setText("");
         }
     }
 
@@ -131,16 +136,16 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextFieldNome = new javax.swing.JTextField();
+        jTextFieldNivel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldDescricao = new javax.swing.JTextField();
+        jTextFieldEligibilidade = new javax.swing.JTextField();
         jButtonNovo = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxModalidade = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de Nível de Modalidade");
@@ -177,7 +182,7 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
 
         jLabel2.setText("Nível");
 
-        jTextFieldNome.setToolTipText("Digite o nome da modalidade");
+        jTextFieldNivel.setToolTipText("Digite o nome da modalidade");
 
         jLabel3.setText("Eligibilidade");
 
@@ -218,7 +223,7 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
 
         jLabel4.setText("Modalidade");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxModalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -262,10 +267,10 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextFieldNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(0, 433, Short.MAX_VALUE))
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldDescricao))))
+                                        .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldEligibilidade))))
                             .addComponent(jLabel3))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -286,16 +291,16 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jComboBoxModalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldEligibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonNovo)
                     .addComponent(jButtonExcluir)
@@ -351,7 +356,7 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         ajustarExibicaoEstado(Estado.Editando);
-        jTextFieldNome.requestFocus();
+        jTextFieldNivel.requestFocus();
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -366,16 +371,17 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         if (jTextFieldCodigo.getText().isEmpty()) {
             // novo registro
-            String nome = jTextFieldNome.getText();
-            String descricao = jTextFieldDescricao.getText();
-            Modalidade novaModalidade = new Modalidade(-1, nome, descricao);
-            ControleObi2.getArmazenamentoModalidade().inserir(novaModalidade);
+            Modalidade modalidade = (Modalidade) jComboBoxModalidade.getSelectedItem();
+            String nivel = jTextFieldNivel.getText();
+            String eligibilidade = jTextFieldEligibilidade.getText();
+            NivelModalidade novoNivelModalidade = new NivelModalidade(-1, modalidade, nivel, eligibilidade);
+            ControleObi2.getArmazenamentoNivelModalidade().inserir(novoNivelModalidade);
             moverCursorUltimo();
         } else {
             // alteração de registro
             long codigo = cursor.getCodigo();
-            String nome = jTextFieldNome.getText();
-            String descricao = jTextFieldDescricao.getText();
+            String nome = jTextFieldNivel.getText();
+            String descricao = jTextFieldEligibilidade.getText();
             Modalidade modalidade = new Modalidade(codigo, nome, descricao);
             ControleObi2.getArmazenamentoModalidade().alterar(modalidade);
         }
@@ -429,13 +435,13 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     private javax.swing.JButton jButtonProximo;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonUltimo;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxModalidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextFieldCodigo;
-    private javax.swing.JTextField jTextFieldDescricao;
-    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldEligibilidade;
+    private javax.swing.JTextField jTextFieldNivel;
     // End of variables declaration//GEN-END:variables
 }
