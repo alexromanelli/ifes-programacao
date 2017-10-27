@@ -154,6 +154,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     }
     
     protected void atualizarExibicaoTabela() {
+        ControleObi2.getArmazenamentoModalidade().getLista();
         ((ModeloTabelaModalidades) jTableModalidades.getModel()).fireTableDataChanged();
     }
     

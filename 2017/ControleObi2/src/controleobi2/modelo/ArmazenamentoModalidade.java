@@ -73,7 +73,7 @@ public class ArmazenamentoModalidade {
             ps.setLong(1, modalidade.getCodigo());
             
             ResultSet rs = ps.executeQuery();
-            if (rs.first()) {
+            if (rs.next()) {
                 long codigo = modalidade.getCodigo();
                 String nome = rs.getString(1);
                 String descricao = rs.getString(2);
@@ -130,19 +130,19 @@ public class ArmazenamentoModalidade {
     }
     
     public ArrayList<Modalidade> getLista() {
-        ArrayList<Modalidade> lista = new ArrayList<>();
+        listaModalidade.clear();
         try {
             PreparedStatement ps = con.prepareStatement(
                     "select codigo, nome, descricao from modalidade order by nome");
             
             ResultSet rs = ps.executeQuery();
             
-            if (rs.first()) {
+            if (rs.next()) {
                 do {
                     long codigo = rs.getLong(1);
                     String nome = rs.getString(2);
                     String descricao = rs.getString(3);
-                    lista.add(new Modalidade(codigo, nome, descricao));
+                    listaModalidade.add(new Modalidade(codigo, nome, descricao));
                 } while (rs.next());
             }
             
@@ -152,6 +152,6 @@ public class ArmazenamentoModalidade {
                     "Erro",
                     JOptionPane.ERROR_MESSAGE);
         }
-        return lista;
+        return listaModalidade;
     }
 }

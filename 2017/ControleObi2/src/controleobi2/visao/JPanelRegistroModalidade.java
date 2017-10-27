@@ -353,6 +353,7 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
             String descricao = jTextFieldDescricao.getText();
             Modalidade novaModalidade = new Modalidade(-1, nome, descricao);
             ControleObi2.getArmazenamentoModalidade().inserir(novaModalidade);
+            listaModalidade = ControleObi2.getArmazenamentoModalidade().getLista();
             moverCursorUltimo();
         } else {
             // alteração de registro
