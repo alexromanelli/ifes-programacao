@@ -3,7 +3,7 @@
  */
 package controleobi2.visao;
 
-import controleobi2.ControleObi2;
+import controleobi2.modelo.dao.ModalidadeDAO;
 import controleobi2.modelo.entidade.Modalidade;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -21,6 +21,7 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
     
     private ArrayList<Modalidade> listaModalidade;
     private Modalidade cursor;
+    private ModalidadeDAO modalidadeDAO;
     
     private void ajustarExibicaoEstado(Estado estadoAtual) {
         switch (estadoAtual) {
@@ -111,11 +112,13 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
 
     /**
      * Creates new form JPanelRegistroModalidade
+     * @param modalidadeDAO
      */
-    public JPanelRegistroModalidade(ArrayList<Modalidade> listaModalidades) {
+    public JPanelRegistroModalidade(ModalidadeDAO modalidadeDAO) {
         initComponents();
         
-        listaModalidade = listaModalidades;
+        this.modalidadeDAO = modalidadeDAO;
+        listaModalidade = modalidadeDAO.getLista();
         
         iniciarCursor();
         exibirDadosCursor();
@@ -352,16 +355,17 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
             String nome = jTextFieldNome.getText();
             String descricao = jTextFieldDescricao.getText();
             Modalidade novaModalidade = new Modalidade(-1, nome, descricao);
-            ControleObi2.getArmazenamentoModalidade().inserir(novaModalidade);
-            listaModalidade = ControleObi2.getArmazenamentoModalidade().getLista();
+            modalidadeDAO.inserir(novaModalidade);
+            listaModalidade = modalidadeDAO.getLista();
             moverCursorUltimo();
+            exibirDadosCursor();
         } else {
             // alteração de registro
             long codigo = cursor.getCodigo();
             String nome = jTextFieldNome.getText();
             String descricao = jTextFieldDescricao.getText();
             Modalidade modalidade = new Modalidade(codigo, nome, descricao);
-            ControleObi2.getArmazenamentoModalidade().alterar(modalidade);
+            modalidadeDAO.alterar(modalidade);
         }
         ajustarExibicaoEstado(Estado.Navegando);
         // atualizar exibição de tabela no jFrameTabelaModalidade
@@ -374,7 +378,7 @@ public class JPanelRegistroModalidade extends javax.swing.JPanel {
                 "Exclusão", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION) {
             int pos = listaModalidade.indexOf(cursor);
-            ControleObi2.getArmazenamentoModalidade().excluir(cursor);
+            modalidadeDAO.excluir(cursor);
             if (pos <= listaModalidade.size() - 1) {
                 cursor = listaModalidade.get(pos);
             } else if (pos > 0) {

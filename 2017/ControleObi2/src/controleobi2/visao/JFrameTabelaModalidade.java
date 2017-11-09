@@ -4,6 +4,8 @@
 package controleobi2.visao;
 
 import controleobi2.ControleObi2;
+import controleobi2.modelo.dao.DAOFactory;
+import controleobi2.modelo.dao.ModalidadeDAO;
 import controleobi2.modelo.entidade.Modalidade;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -16,6 +18,8 @@ import javax.swing.JOptionPane;
 public class JFrameTabelaModalidade extends javax.swing.JFrame {
     
     private static JFrameTabelaModalidade INSTANCIA;
+    
+    private ModalidadeDAO modalidadeDAO;
     
     public static JFrameTabelaModalidade getInstance() {
         if (INSTANCIA == null)
@@ -30,8 +34,10 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
         INSTANCIA = this;
         initComponents();
         
+        modalidadeDAO = DAOFactory.getDefaultDAOFactory().getModalidadeDAO();
+        
         ModeloTabelaModalidades modeloTabela = new ModeloTabelaModalidades(
-                ControleObi2.getArmazenamentoModalidade().getLista());
+                modalidadeDAO.getLista());
         
         jTableModalidades.setModel(modeloTabela);
         
@@ -143,8 +149,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
 
     private JPanelRegistroModalidade exibirTelaRegistroModalidade() {
         JPanelRegistroModalidade jPanelRegistroModalidade = 
-                new JPanelRegistroModalidade(
-                        ControleObi2.getArmazenamentoModalidade().getLista());
+                new JPanelRegistroModalidade(modalidadeDAO);
         JFrame frame = new JFrame();
         frame.add(jPanelRegistroModalidade);
         frame.pack();
@@ -154,7 +159,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     }
     
     protected void atualizarExibicaoTabela() {
-        ControleObi2.getArmazenamentoModalidade().getLista();
+        modalidadeDAO.getLista();
         ((ModeloTabelaModalidades) jTableModalidades.getModel()).fireTableDataChanged();
     }
     
@@ -166,8 +171,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         int indiceItemSelecionado = jTableModalidades.getSelectedRow();
         if (indiceItemSelecionado >= 0) {
-            ArrayList<Modalidade> listaModalidades =
-                    ControleObi2.getArmazenamentoModalidade().getLista();
+            ArrayList<Modalidade> listaModalidades = modalidadeDAO.getLista();
             Modalidade modalidadeAlterar = listaModalidades.get(indiceItemSelecionado);
             
             JPanelRegistroModalidade telaRegistro = exibirTelaRegistroModalidade();
@@ -185,10 +189,10 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
                     "Exclusão", JOptionPane.YES_NO_OPTION)
                     == JOptionPane.YES_OPTION) {
                 ArrayList<Modalidade> listaModalidade =
-                        ControleObi2.getArmazenamentoModalidade().getLista();
+                        modalidadeDAO.getLista();
                 Modalidade modalidadeExcluir = listaModalidade.get(indiceItemSelecionado);
 
-                ControleObi2.getArmazenamentoModalidade().excluir(modalidadeExcluir);
+                modalidadeDAO.excluir(modalidadeExcluir);
 
                 // atualizar exibição de tabela no jFrameTabelaModalidade
                 JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();

@@ -1,0 +1,41 @@
+
+DAO : Data Access Object
+
+Pacote modelo.dao:
+
+    Classe abstrata:
+    - DAOFactory
+        - getDAOFactory(int tipo)
+        - getDefaultDAOFactory()
+        - abstract ModalidadeDAO getModalidadeDAO()
+        - abstract TipoEscolaDAO getTipoEscolaDAO()
+        - ...
+
+    Interfaces:
+    - ModalidadeDAO
+        - boolean inserir(Modalidade modalidade)
+        - boolean alterar(Modalidade modalidade)
+        - boolean excluir(Modalidade modalidade)
+        - Modalidade buscar(Modalidade modalidade)
+        - ArrayList<Modalidade> getLista()
+    - TipoEscolaDAO
+        - boolean inserir(TipoEscola tipoEscola)
+        - boolean alterar(TipoEscola tipoEscola)
+        - boolean excluir(TipoEscola tipoEscola)
+        - TipoEscola buscar(TipoEscola tipoEscola)
+        - ArrayList<TipoEscola> getLista()
+    - FaseDAO
+    - LinguagemDAO
+    - NivelCursoDAO
+
+Pacote modelo.dao.pg:
+
+    Classes:
+    - PostgreSqlDAOFactory extends DAOFactory
+        - getConnection()
+    - PgModalidadeDAO implements ModalidadeDAO
+    - PgTipoEscolaDAO implements TipoEscolaDAO
+    - PgFaseDAO implements FaseDAO
+    - PgLinguagemDAO implements LinguagemDAO
+    - PgNivelCursoDAO implements NivelCursoDAO
+
