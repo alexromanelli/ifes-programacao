@@ -29,6 +29,8 @@ public abstract class DAOFactory {
 
     public abstract ModalidadeDAO getModalidadeDAO();
     
+    public abstract NivelModalidadeDAO getNivelModalidadeDAO();
+    
     public abstract TipoEscolaDAO getTipoEscolaDAO();
     
     public abstract FaseDAO getFaseDAO();

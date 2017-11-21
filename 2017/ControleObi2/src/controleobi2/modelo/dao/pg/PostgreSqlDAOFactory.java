@@ -5,6 +5,7 @@ package controleobi2.modelo.dao.pg;
 
 import controleobi2.modelo.dao.DAOFactory;
 import controleobi2.modelo.dao.ModalidadeDAO;
+import controleobi2.modelo.dao.NivelModalidadeDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -47,6 +48,11 @@ public class PostgreSqlDAOFactory extends DAOFactory {
         return new PgModalidadeDAO();
     }
 
+    @Override
+    public NivelModalidadeDAO getNivelModalidadeDAO() {
+        return new PgNivelModalidadeDAO();
+    }
+    
     @Override
     public TipoEscolaDAO getTipoEscolaDAO() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
