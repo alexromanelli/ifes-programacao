@@ -5,6 +5,9 @@ package controleobi2.visao;
 
 import controleobi2.modelo.dao.DAOFactory;
 import controleobi2.modelo.dao.NivelModalidadeDAO;
+import controleobi2.modelo.entidade.NivelModalidade;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +36,14 @@ public class JFrameTabelaNivelModalidade extends javax.swing.JFrame {
                 new ModeloTabelaNivelModalidade(nivelModalidadeDAO.getLista());
         jTableNivelModalidade.setModel(modeloTabela);
         
+        atualizarExibicaoTabela();
+        
         INSTANCIA = this;
+    }
+
+    protected void atualizarExibicaoTabela() {
+        nivelModalidadeDAO.getLista();
+        ((ModeloTabelaNivelModalidade) jTableNivelModalidade.getModel()).fireTableDataChanged();
     }
 
     /**
@@ -46,22 +56,38 @@ public class JFrameTabelaNivelModalidade extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonNovo = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableNivelModalidade = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Nível de Modalidade - Listagem");
 
-        jButton1.setText("Novo");
-        jButton1.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonNovo.setText("Novo");
+        jButtonNovo.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Editar");
-        jButton2.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Excluir");
-        jButton3.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setPreferredSize(new java.awt.Dimension(80, 27));
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,11 +95,11 @@ public class JFrameTabelaNivelModalidade extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -81,9 +107,9 @@ public class JFrameTabelaNivelModalidade extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -111,7 +137,51 @@ public class JFrameTabelaNivelModalidade extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        JFrameRegistroNivelModalidade jFrameRegistroNivelModalidade = 
+                new JFrameRegistroNivelModalidade(nivelModalidadeDAO);
+        jFrameRegistroNivelModalidade.setVisible(true);
+        jFrameRegistroNivelModalidade.prepararParaNovoRegistro();
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        int indiceItemSelecionado = jTableNivelModalidade.getSelectedRow();
+        if (indiceItemSelecionado >= 0) {
+            ArrayList<NivelModalidade> listaNivelModalidade = nivelModalidadeDAO.getLista();
+            NivelModalidade nivelModalidadeAlterar = listaNivelModalidade.get(indiceItemSelecionado);
+            
+            JFrameRegistroNivelModalidade telaRegistro = new JFrameRegistroNivelModalidade(nivelModalidadeDAO);
+            telaRegistro.setVisible(true);
+            telaRegistro.prepararParaAlterarRegistro(nivelModalidadeAlterar);
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro para alterar.");
+        }
+
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int indiceItemSelecionado = jTableNivelModalidade.getSelectedRow();
+        if (indiceItemSelecionado >= 0) {
+            if (JOptionPane.showConfirmDialog(null, 
+                    "Confirmar exclusão do nível de modalidade selecionado?",
+                    "Exclusão", JOptionPane.YES_NO_OPTION)
+                    == JOptionPane.YES_OPTION) {
+                ArrayList<NivelModalidade> listaNivelModalidade =
+                        nivelModalidadeDAO.getLista();
+                NivelModalidade nivelModalidadeExcluir = listaNivelModalidade.get(indiceItemSelecionado);
+
+                nivelModalidadeDAO.excluir(nivelModalidadeExcluir);
+
+                // atualizar exibição de tabela no jFrameTabelaNivelModalidade
+                JFrameTabelaNivelModalidade.getInstance().atualizarExibicaoTabela();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um registro para excluir.");
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,9 +219,9 @@ public class JFrameTabelaNivelModalidade extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonNovo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableNivelModalidade;

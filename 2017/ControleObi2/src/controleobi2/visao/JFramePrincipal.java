@@ -103,10 +103,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCadastroModalidadeActionPerformed
 
     private void jButtonCadastroNivelModalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroNivelModalidadeActionPerformed
-        JOptionPane.showMessageDialog(null, 
-                "Você clicou no botão \"Cadastro de nível de modalidade\".", 
-                "Utilidade pública", 
-                JOptionPane.PLAIN_MESSAGE);
+        JFrameTabelaNivelModalidade jFrameTabelaNivelModalidade = new JFrameTabelaNivelModalidade();
+        jFrameTabelaNivelModalidade.setVisible(true);
     }//GEN-LAST:event_jButtonCadastroNivelModalidadeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

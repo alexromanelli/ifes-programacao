@@ -9,7 +9,10 @@ import controleobi2.modelo.dao.ModalidadeDAO;
 import controleobi2.modelo.entidade.Modalidade;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -26,6 +29,16 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
             INSTANCIA = new JFrameTabelaModalidade();
         return INSTANCIA;
     }
+    
+    private void ajustarLarguraColunas() {
+        jTableModalidade.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTableModalidade.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTableModalidade.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jTableModalidade.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jTableModalidade.getColumnModel().getColumn(2).setPreferredWidth(600);
+    }
 
     /**
      * Creates new form JFrameTabelaModalidade
@@ -36,13 +49,15 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
         
         modalidadeDAO = DAOFactory.getDefaultDAOFactory().getModalidadeDAO();
         
-        ModeloTabelaModalidades modeloTabela = new ModeloTabelaModalidades(
+        ModeloTabelaModalidade modeloTabela = new ModeloTabelaModalidade(
                 modalidadeDAO.getLista());
         
-        jTableModalidades.setModel(modeloTabela);
+        jTableModalidade.setModel(modeloTabela);
         
         // comando para atualizar a exibição da tabela
         modeloTabela.fireTableDataChanged();
+        
+        ajustarLarguraColunas();
     }
 
     /**
@@ -55,7 +70,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableModalidades = new javax.swing.JTable();
+        jTableModalidade = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButtonNovo = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
@@ -64,7 +79,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tabela de modalidades");
 
-        jTableModalidades.setModel(new javax.swing.table.DefaultTableModel(
+        jTableModalidade.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -75,7 +90,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTableModalidades);
+        jScrollPane1.setViewportView(jTableModalidade);
 
         jButtonNovo.setText("Novo");
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +175,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     
     protected void atualizarExibicaoTabela() {
         modalidadeDAO.getLista();
-        ((ModeloTabelaModalidades) jTableModalidades.getModel()).fireTableDataChanged();
+        ((ModeloTabelaModalidade) jTableModalidade.getModel()).fireTableDataChanged();
     }
     
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
@@ -169,7 +184,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-        int indiceItemSelecionado = jTableModalidades.getSelectedRow();
+        int indiceItemSelecionado = jTableModalidade.getSelectedRow();
         if (indiceItemSelecionado >= 0) {
             ArrayList<Modalidade> listaModalidades = modalidadeDAO.getLista();
             Modalidade modalidadeAlterar = listaModalidades.get(indiceItemSelecionado);
@@ -182,7 +197,7 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        int indiceItemSelecionado = jTableModalidades.getSelectedRow();
+        int indiceItemSelecionado = jTableModalidade.getSelectedRow();
         if (indiceItemSelecionado >= 0) {
             if (JOptionPane.showConfirmDialog(null, 
                     "Confirmar exclusão da modalidade selecionada?",
@@ -243,6 +258,6 @@ public class JFrameTabelaModalidade extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableModalidades;
+    private javax.swing.JTable jTableModalidade;
     // End of variables declaration//GEN-END:variables
 }

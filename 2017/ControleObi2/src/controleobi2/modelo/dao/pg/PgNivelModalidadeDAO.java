@@ -3,8 +3,6 @@
  */
 package controleobi2.modelo.dao.pg;
 
-import controleobi2.modelo.dao.DAOFactory;
-import controleobi2.modelo.dao.ModalidadeDAO;
 import controleobi2.modelo.dao.NivelModalidadeDAO;
 import controleobi2.modelo.entidade.Modalidade;
 import controleobi2.modelo.entidade.NivelModalidade;

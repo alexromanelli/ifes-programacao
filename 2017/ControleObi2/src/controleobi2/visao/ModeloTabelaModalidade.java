@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Alexandre Romanelli <alexandre.romanelli@ifes.edu.br>
  */
-public class ModeloTabelaModalidades extends AbstractTableModel {
+public class ModeloTabelaModalidade extends AbstractTableModel {
 
     private ArrayList<Modalidade> listaModalidades;
     private static final int QUANTIDADE_COLUNAS_TABELA = 3;
@@ -21,7 +21,7 @@ public class ModeloTabelaModalidades extends AbstractTableModel {
         "Descrição"
     };
     
-    public ModeloTabelaModalidades(ArrayList<Modalidade> listaModalidades) {
+    public ModeloTabelaModalidade(ArrayList<Modalidade> listaModalidades) {
         this.listaModalidades = listaModalidades;
     }
     

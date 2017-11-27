@@ -3,30 +3,37 @@
  */
 package controleobi2.visao;
 
-import controleobi2.ControleObi2;
+import controleobi2.modelo.dao.DAOFactory;
+import controleobi2.modelo.dao.ModalidadeDAO;
+import controleobi2.modelo.dao.NivelModalidadeDAO;
 import controleobi2.modelo.entidade.Modalidade;
 import controleobi2.modelo.entidade.NivelModalidade;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Alexandre Romanelli <alexandre.romanelli@ifes.edu.br>
  */
 public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
+
     enum Estado {
         Navegando,
         Editando
     }
-    
+
+    private NivelModalidadeDAO nivelModalidadeDAO;
     private ArrayList<NivelModalidade> listaNivelModalidade;
+    private ModalidadeDAO modalidadeDAO;
     private NivelModalidade cursor;
-    
+
     private void ajustarExibicaoEstado(Estado estadoAtual) {
         switch (estadoAtual) {
             case Navegando:
                 jTextFieldCodigo.setEditable(false);
                 jTextFieldNivel.setEditable(false);
-                jComboBoxModalidade.setEditable(false);
+                jComboBoxModalidade.setEnabled(false);
                 jTextFieldEligibilidade.setEditable(false);
                 jButtonCancelar.setEnabled(false);
                 jButtonSalvar.setEnabled(false);
@@ -45,7 +52,7 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
             case Editando:
                 jTextFieldCodigo.setEditable(false);
                 jTextFieldNivel.setEditable(true);
-                jComboBoxModalidade.setEditable(true);
+                jComboBoxModalidade.setEnabled(true);
                 jTextFieldEligibilidade.setEditable(true);
                 jButtonCancelar.setEnabled(true);
                 jButtonSalvar.setEnabled(true);
@@ -60,14 +67,14 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
                 break;
         }
     }
-    
+
     private void iniciarCursor() {
         cursor = null;
         if (listaNivelModalidade.size() > 0) {
             cursor = listaNivelModalidade.get(0);
         }
     }
-    
+
     private void moverCursorProximo() {
         int pos = listaNivelModalidade.indexOf(cursor);
         if (pos < listaNivelModalidade.size() - 1) { // verifica se não é o último
@@ -75,7 +82,7 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
             exibirDadosCursor();
         }
     }
-    
+
     private void moverCursorAnterior() {
         int pos = listaNivelModalidade.indexOf(cursor);
         if (pos > 0) { // verifica se não é o primeiro
@@ -83,25 +90,25 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
             exibirDadosCursor();
         }
     }
-    
+
     private void moverCursorPrimeiro() {
         if (listaNivelModalidade.size() > 0) {
             cursor = listaNivelModalidade.get(0);
             exibirDadosCursor();
         }
     }
-    
+
     private void moverCursorUltimo() {
         if (listaNivelModalidade.size() > 0) {
             cursor = listaNivelModalidade.get(listaNivelModalidade.size() - 1);
             exibirDadosCursor();
         }
     }
-    
+
     private void exibirDadosCursor() {
         if (cursor != null) {
             jTextFieldCodigo.setText(Long.toString(cursor.getCodigo()));
-            jComboBoxModalidade.setSelectedItem(cursor);
+            jComboBoxModalidade.setSelectedItem(cursor.getModalidade());
             jTextFieldNivel.setText(cursor.getNivel());
             jTextFieldEligibilidade.setText(cursor.getEligibilidade());
         } else {
@@ -112,12 +119,32 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
         }
     }
 
+    private void iniciarComboBoxModalidade() {
+        modalidadeDAO = DAOFactory.getDefaultDAOFactory().getModalidadeDAO();
+        ArrayList<Modalidade> listaModalidade = modalidadeDAO.getLista();
+        Modalidade[] vetorModalidades = new Modalidade[listaModalidade.size()];
+        listaModalidade.toArray(vetorModalidades);
+        DefaultComboBoxModel<Modalidade> modeloComboBoxModalidade
+                = new DefaultComboBoxModel<>(vetorModalidades);
+        jComboBoxModalidade.setModel(modeloComboBoxModalidade);
+    }
 
     /**
      * Creates new form JFrameRegistroNivelModalidade
+     *
+     * @param nivelModalidadeDAO
      */
-    public JFrameRegistroNivelModalidade() {
+    public JFrameRegistroNivelModalidade(NivelModalidadeDAO nivelModalidadeDAO) {
         initComponents();
+
+        iniciarComboBoxModalidade();
+
+        this.nivelModalidadeDAO = nivelModalidadeDAO;
+        listaNivelModalidade = nivelModalidadeDAO.getLista();
+        iniciarCursor();
+        exibirDadosCursor();
+
+        ajustarExibicaoEstado(Estado.Navegando);
     }
 
     /**
@@ -222,8 +249,6 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Modalidade");
-
-        jComboBoxModalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,28 +355,48 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
         moverCursorUltimo();
     }//GEN-LAST:event_jButtonUltimoActionPerformed
 
+    protected void prepararParaNovoRegistro() {
+        jTextFieldCodigo.setText("");
+        jTextFieldNivel.setText("");
+        jTextFieldEligibilidade.setText("");
+        ajustarExibicaoEstado(Estado.Editando);
+        jComboBoxModalidade.requestFocus();
+    }
+
+    protected void prepararParaAlterarRegistro(NivelModalidade registro) {
+        for (NivelModalidade n : listaNivelModalidade) {
+            if (n.getCodigo() == registro.getCodigo()) {
+                cursor = n;
+                break;
+            }
+        }
+        exibirDadosCursor();
+        ajustarExibicaoEstado(Estado.Editando);
+        jComboBoxModalidade.requestFocus();
+    }
+
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        //prepararParaNovoRegistro();
+        prepararParaNovoRegistro();
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-//        if (JOptionPane.showConfirmDialog(null,
-//            "Confirmar exclusão da modalidade selecionada?",
-//            "Exclusão", JOptionPane.YES_NO_OPTION)
-//        == JOptionPane.YES_OPTION) {
-//        int pos = listaModalidade.indexOf(cursor);
-//        ControleObi2.getArmazenamentoModalidade().excluir(cursor);
-//        if (pos <= listaModalidade.size() - 1) {
-//            cursor = listaModalidade.get(pos);
-//        } else if (pos > 0) {
-//            cursor = listaModalidade.get(pos - 1);
-//        } else {
-//            cursor = null;
-//        }
-//        exibirDadosCursor();
-//        // atualizar exibição de tabela no jFrameTabelaModalidade
-//        JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();
-//        }
+        if (JOptionPane.showConfirmDialog(null,
+                "Confirmar exclusão do nível de modalidade selecionado?",
+                "Exclusão", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            int pos = listaNivelModalidade.indexOf(cursor);
+            nivelModalidadeDAO.excluir(cursor);
+            if (pos <= listaNivelModalidade.size() - 1) {
+                cursor = listaNivelModalidade.get(pos);
+            } else if (pos > 0) {
+                cursor = listaNivelModalidade.get(pos - 1);
+            } else {
+                cursor = null;
+            }
+            exibirDadosCursor();
+            // atualizar exibição de tabela no jFrameTabelaNivelModalidade
+            JFrameTabelaNivelModalidade.getInstance().atualizarExibicaoTabela();
+        }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -360,12 +405,12 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-//        if (JOptionPane.showConfirmDialog(null, "Confirmar cancelamento de edição?",
-//            "Cancelamento", JOptionPane.YES_NO_OPTION)
-//        == JOptionPane.YES_OPTION) {
-//        exibirDadosCursor();
-//        ajustarExibicaoEstado(Estado.Navegando);
-//        }
+        if (JOptionPane.showConfirmDialog(null, "Confirmar cancelamento de edição?",
+                "Cancelamento", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            exibirDadosCursor();
+            ajustarExibicaoEstado(Estado.Navegando);
+        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -375,55 +420,21 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
             String nivel = jTextFieldNivel.getText();
             String eligibilidade = jTextFieldEligibilidade.getText();
             NivelModalidade novoNivelModalidade = new NivelModalidade(-1, modalidade, nivel, eligibilidade);
-            ControleObi2.getArmazenamentoNivelModalidade().inserir(novoNivelModalidade);
+            nivelModalidadeDAO.inserir(novoNivelModalidade);
             moverCursorUltimo();
         } else {
             // alteração de registro
             long codigo = cursor.getCodigo();
-            String nome = jTextFieldNivel.getText();
-            String descricao = jTextFieldEligibilidade.getText();
-            Modalidade modalidade = new Modalidade(codigo, nome, descricao);
-            ControleObi2.getArmazenamentoModalidade().alterar(modalidade);
+            Modalidade modalidade = (Modalidade) jComboBoxModalidade.getSelectedItem();
+            String nivel = jTextFieldNivel.getText();
+            String eligibilidade = jTextFieldEligibilidade.getText();
+            NivelModalidade nivelModalidade = new NivelModalidade(codigo, modalidade, nivel, eligibilidade);
+            nivelModalidadeDAO.alterar(nivelModalidade);
         }
         ajustarExibicaoEstado(Estado.Navegando);
-        // atualizar exibição de tabela no jFrameTabelaModalidade
-        JFrameTabelaModalidade.getInstance().atualizarExibicaoTabela();
+        // atualizar exibição de tabela no jFrameTabelaNivelModalidade
+        JFrameTabelaNivelModalidade.getInstance().atualizarExibicaoTabela();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameRegistroNivelModalidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFrameRegistroNivelModalidade().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnterior;
@@ -435,7 +446,7 @@ public class JFrameRegistroNivelModalidade extends javax.swing.JFrame {
     private javax.swing.JButton jButtonProximo;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonUltimo;
-    private javax.swing.JComboBox<String> jComboBoxModalidade;
+    private javax.swing.JComboBox<Modalidade> jComboBoxModalidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
